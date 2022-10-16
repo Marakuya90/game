@@ -8,25 +8,18 @@ let player = {
     row:0,
     col:0
 };
-
-
-
-
+let hudHearts = document.querySelector('#hudHearts');
+let heart = 0;
 
 //События
 document.querySelector('#welcomeForm input').addEventListener('input', check);
 document.getElementById('welcomeForm').addEventListener('submit', start);
-
-
-
 
 //Проверка имени ввода игрока
 function check() {
     startButton.disabled = !this.value;
     userName = this.value;
 }
-
-
 //Запуск игры
 function start(event) {
     event.preventDefault();
@@ -35,9 +28,7 @@ function start(event) {
     document.getElementById('hudUsername').innerText = userName;
     fill();
     window.addEventListener('keydown', move);
-
 }
-
 //Функция для заполнения игрового поля
 function fill() {
 //Помещаем игрока
@@ -69,29 +60,67 @@ function move(event) {
         case 40:down(); break;
     }
 }
-
+//Движение влево
 function left(){
-    
+    if(player.col > 0) {
+        let currentCell = getCell(player.row, player.col);
+        let nextCell = getCell(player.row, player.col - 1);
+        if(nextCell.className!='cell stone'){ 
+            if(nextCell.classList.contains('heart')){
+                hudHearts.innerText = `${++heart}/10`;
+            }
+        currentCell.className = 'cell';
+        nextCell.className = 'cell player';
+        player.col--;
+        }
+    }
 };
-
+//Движение вверх
 function up(){
-
+    if(player.row > 0) {
+        let currentCell = getCell(player.row, player.col);
+        let nextCell = getCell(player.row - 1, player.col);
+        if(nextCell.className!='cell stone'){ 
+            if(nextCell.classList.contains('heart')){
+                hudHearts.innerText = `${++heart}/10`;
+            }
+        currentCell.className = 'cell';
+        nextCell.className = 'cell player';
+        player.row--;
+        }
+    }
 };
-//движение вправо
+//Движение вправо
 function right(){
     if(player.col < COLS - 1) {
         let currentCell = getCell(player.row, player.col);
         let nextCell = getCell(player.row, player.col + 1);
+        if(nextCell.className!='cell stone'){
+            if(nextCell.classList.contains('heart')){
+                hudHearts.innerText = `${++heart}/10`;
+            }
         currentCell.className = 'cell';
         nextCell.className = 'cell player';
         player.col++;
+        }
     }
 };
-
+//Движение вниз
 function down(){
-
+    if(player.row < ROWS - 1) {
+        let currentCell = getCell(player.row, player.col);
+        let nextCell = getCell(player.row + 1, player.col);
+        if(nextCell.className!='cell stone'){ 
+            if(nextCell.classList.contains('heart')){
+                hudHearts.innerText = `${++heart}/10`;
+            }
+        currentCell.className = 'cell';
+        nextCell.className = 'cell player';
+        player.row++;
+        }
+    }
 }
-
+//Получение положения игрока
 function getCell(row, col){
     return cells[row * COLS + col];
 }
