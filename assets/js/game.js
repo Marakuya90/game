@@ -20,6 +20,7 @@ function check() {
     startButton.disabled = !this.value;
     userName = this.value;
 }
+
 //Запуск игры
 function start(event) {
     event.preventDefault();
@@ -29,6 +30,7 @@ function start(event) {
     fill();
     window.addEventListener('keydown', move);
 }
+
 //Функция для заполнения игрового поля
 function fill() {
 //Помещаем игрока
@@ -42,6 +44,7 @@ function fill() {
             stonesCount++; 
         }
     }
+
 //Размещаем сердца на игровом поле
     let heartCount = 0;
     while (heartCount < 10) {
@@ -51,6 +54,7 @@ function fill() {
             heartCount++;}
         }
     }
+
 //Движение игрока
 function move(event) {
     switch(event.keyCode){
@@ -60,6 +64,7 @@ function move(event) {
         case 40:down(); break;
     }
 }
+
 //Движение влево
 function left(){
     if(player.col > 0) {
@@ -75,6 +80,7 @@ function left(){
         }
     }
 };
+
 //Движение вверх
 function up(){
     if(player.row > 0) {
@@ -90,6 +96,7 @@ function up(){
         }
     }
 };
+
 //Движение вправо
 function right(){
     if(player.col < COLS - 1) {
@@ -105,6 +112,7 @@ function right(){
         }
     }
 };
+
 //Движение вниз
 function down(){
     if(player.row < ROWS - 1) {
@@ -120,6 +128,7 @@ function down(){
         }
     }
 }
+
 //Получение положения игрока
 function getCell(row, col){
     return cells[row * COLS + col];
